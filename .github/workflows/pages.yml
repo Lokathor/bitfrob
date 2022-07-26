@@ -1,0 +1,37 @@
+
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          # github-pages-deploy-action requires we set this
+          persist-credentials: false
+      
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          default: true
+      
+      - name: Install rust-src component
+        run: rustup component add rust-src
+      
+      - name: Build The Docs
+        run: cargo doc
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: target/thumbv4t-none-eabi/doc # The folder the action should deploy.
