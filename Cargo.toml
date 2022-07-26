@@ -1,8 +1,11 @@
 [package]
 name = "bitfrob"
+description = "Helps you frob those bits"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+repository = "https://github.com/Lokathor/bitfrob"
+license = "Zlib OR Apache-2.0 OR MIT"
+categories = ["no-std"]
 
 [dependencies]
+# none!
