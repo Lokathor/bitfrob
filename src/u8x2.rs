@@ -4,7 +4,7 @@ use crate::*;
 #[repr(transparent)]
 pub struct u8x2(u16);
 impl u8x2 {
-  #[inlie]
+  #[inline]
   #[must_use]
   pub const fn low(self) -> u8 {
     u16_get_value::<0,7>(self.0) as u8
@@ -14,7 +14,7 @@ impl u8x2 {
   pub const fn with_low(self, low: u8) -> Self {
     Self(u16_with_value::<0,7>(self.0, low as u16))
   }
-  #[inlie]
+  #[inline]
   #[must_use]
   pub const fn high(self) -> u8 {
     u16_get_value::<8,15>(self.0) as u8
