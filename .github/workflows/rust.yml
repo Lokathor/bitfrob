@@ -5,16 +5,23 @@ on:
   pull_request: {}
 
 env:
-  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  test:
+    name: Test Rust ${{ matrix.rust }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+        # versions (all on linux-x86_64)
+        - { rust: 1.51.0, os: ubuntu-latest }
+        - { rust: stable, os: ubuntu-latest }
+        - { rust: beta, os: ubuntu-latest }
+        - { rust: nightly, os: ubuntu-latest }
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: ${{ matrix.rust }}
+    - uses: actions/checkout@v2
+    - run: cargo test --verbose
