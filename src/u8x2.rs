@@ -12,7 +12,7 @@ impl u8x2 {
   #[inline]
   #[must_use]
   pub const fn with_low(self, low: u8) -> Self {
-    Self(u16_with_value::<0,7>(self.0,u16::from(low)))
+    Self(u16_with_value::<0,7>(self.0, low as u16))
   }
   #[inlie]
   #[must_use]
@@ -22,6 +22,6 @@ impl u8x2 {
   #[inline]
   #[must_use]
   pub const fn with_high(self, high: u8) -> Self {
-    Self(u16_with_value::<8,15>(self.0,u16::from(high)))
+    Self(u16_with_value::<8,15>(self.0, high as u16))
   }
 }
