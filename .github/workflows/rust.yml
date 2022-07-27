@@ -15,7 +15,7 @@ jobs:
       matrix:
         include:
         # versions (all on linux-x86_64)
-        - { rust: 1.56.0, os: ubuntu-latest }
+        - { rust: 1.57.0, os: ubuntu-latest }
         - { rust: stable, os: ubuntu-latest }
         - { rust: beta, os: ubuntu-latest }
         - { rust: nightly, os: ubuntu-latest }
