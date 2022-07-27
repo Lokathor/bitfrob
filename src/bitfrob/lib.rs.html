@@ -8,7 +8,9 @@
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
+<span id="5">5</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">no_std</span>]</span>
+<span class="attribute">#![<span class="ident">forbid</span>(<span class="ident">unsafe_code</span>)]</span>
 
 <span class="kw">mod</span> <span class="ident">fns</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">fns</span>::<span class="kw-2">*</span>;
