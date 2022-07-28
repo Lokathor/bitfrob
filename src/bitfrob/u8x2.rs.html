@@ -5,7 +5,61 @@
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../bitfrob/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
                                 <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
                         </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
-</pre><pre class="rust"><code>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::<span class="kw-2">*</span>;
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">u8x2</span>(<span class="ident">u16</span>);
+<span class="kw">impl</span> <span class="ident">u8x2</span> {
+  <span class="attribute">#[<span class="ident">inline</span>]</span>
+  <span class="attribute">#[<span class="ident">must_use</span>]</span>
+  <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">low</span>(<span class="self">self</span>) -&gt; <span class="ident">u8</span> {
+    <span class="ident">u16_get_value</span>::<span class="op">&lt;</span><span class="number">0</span>,<span class="number">7</span><span class="op">&gt;</span>(<span class="self">self</span>.<span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>
+  }
+  <span class="attribute">#[<span class="ident">inline</span>]</span>
+  <span class="attribute">#[<span class="ident">must_use</span>]</span>
+  <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">with_low</span>(<span class="self">self</span>, <span class="ident">low</span>: <span class="ident">u8</span>) -&gt; <span class="self">Self</span> {
+    <span class="self">Self</span>(<span class="ident">u16_with_value</span>::<span class="op">&lt;</span><span class="number">0</span>,<span class="number">7</span><span class="op">&gt;</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">low</span> <span class="kw">as</span> <span class="ident">u16</span>))
+  }
+  <span class="attribute">#[<span class="ident">inline</span>]</span>
+  <span class="attribute">#[<span class="ident">must_use</span>]</span>
+  <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">high</span>(<span class="self">self</span>) -&gt; <span class="ident">u8</span> {
+    <span class="ident">u16_get_value</span>::<span class="op">&lt;</span><span class="number">8</span>,<span class="number">15</span><span class="op">&gt;</span>(<span class="self">self</span>.<span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>
+  }
+  <span class="attribute">#[<span class="ident">inline</span>]</span>
+  <span class="attribute">#[<span class="ident">must_use</span>]</span>
+  <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">with_high</span>(<span class="self">self</span>, <span class="ident">high</span>: <span class="ident">u8</span>) -&gt; <span class="self">Self</span> {
+    <span class="self">Self</span>(<span class="ident">u16_with_value</span>::<span class="op">&lt;</span><span class="number">8</span>,<span class="number">15</span><span class="op">&gt;</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">high</span> <span class="kw">as</span> <span class="ident">u16</span>))
+  }
+}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (4d6d601c8 2022-07-26)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (2643b1646 2022-07-27)" ></div>
 </body></html>
