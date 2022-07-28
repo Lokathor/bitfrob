@@ -1,6 +1,7 @@
 use crate::*;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[allow(non_camel_case_types)]
 #[repr(transparent)]
 pub struct u8x2(u16);
 impl u8x2 {
