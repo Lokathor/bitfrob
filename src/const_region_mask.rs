@@ -77,9 +77,9 @@ impl<const L: u32, const H: u32> U16ConstRegionMask<L, H> {
 ///
 /// ```
 /// # use bitfrob::*;
-/// assert_eq!(u32_region_mask(0, 2), 0b0000_0111_u8);
-/// assert_eq!(u32_region_mask(1, 3), 0b0000_1110_u8);
-/// assert_eq!(u32_region_mask(4, 7), 0b1111_0000_u8);
+/// assert_eq!(u8_region_mask(0, 2), 0b0000_0111_u8);
+/// assert_eq!(u8_region_mask(1, 3), 0b0000_1110_u8);
+/// assert_eq!(u8_region_mask(4, 7), 0b1111_0000_u8);
 /// ```
 ///
 /// ## Panics
