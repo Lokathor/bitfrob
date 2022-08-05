@@ -31,12 +31,36 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
 </pre><pre class="rust"><code><span class="macro">macro_rules!</span> <span class="ident">impl_region_mask</span> {
   (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>) =&gt; {
     <span class="doccomment">/// Generates a bit mask where all bits in the region are 1.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `low` and `high` values form an *inclusive* bit range where the mask</span>
     <span class="doccomment">/// bits are 1.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is largely a helper function for other functions in this crate, but</span>
+    <span class="doccomment">/// you can use it yourself if you think it&#39;s useful.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Panics</span>
     <span class="doccomment">/// * `low` and `high` can&#39;t exceed the number of bits in the type.</span>
@@ -64,5 +88,23 @@
 <span class="macro">impl_region_mask!</span>(<span class="ident">u32_region_mask</span>, <span class="ident">u32</span>);
 <span class="macro">impl_region_mask!</span>(<span class="ident">u64_region_mask</span>, <span class="ident">u64</span>);
 <span class="macro">impl_region_mask!</span>(<span class="ident">u128_region_mask</span>, <span class="ident">u128</span>);
+
+<span class="comment">/*
+
+backup: we might want to do the ZST associated const thing?
+
+/// Like [`u32_region_mask`], but forces the value into an associated constant.
+///
+/// * Advantage: the compiler is forced to compute the constant at compile time,
+///   regardless of debug level.
+/// * Disadvantage: the `L` and `H` must themselves be constants.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct U32ConstRegionMask&lt;const L: u32, const H: u32&gt;;
+impl&lt;const L: u32, const H: u32&gt; U32ConstRegionMask&lt;L, H&gt; {
+  /// The computed bit mask.
+  pub const OUT: u32 = u32_region_mask(L, H);
+}
+
+*/</span>
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f6f9d5e73 2022-08-04)" ></div></body></html>

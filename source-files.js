@@ -1,4 +1,4 @@
 var sourcesIndex = JSON.parse('{\
-"bitfrob":["",[],["const_region_mask.rs","get_bit.rs","lib.rs","region_mask.rs","with_bit.rs"]]\
+"bitfrob":["",[],["get_bit.rs","get_region.rs","get_value.rs","lib.rs","region_mask.rs","u8x2_.rs","with_bit.rs","with_region.rs","with_value.rs"]]\
 }');
 createSourceSidebar();
