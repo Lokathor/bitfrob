@@ -1,6 +1,6 @@
 macro_rules! impl_with_bit {
   ($fn_name:ident, $t:ty) => {
-    /// Replaces the `b` bit in `u`, returning the new value.
+    /// Replaces the `b` bit in `u`.
     ///
     /// ## Panics
     /// * `b` can't exceed the number of bits in the type.

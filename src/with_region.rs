@@ -2,7 +2,7 @@ use crate::region_mask::*;
 
 macro_rules! impl_with_region {
   ($fn_name:ident, $t:ty, $mask_get_fn:ident) => {
-    /// Replaces the `low` to `high` bit region of `old`, returning the new value.
+    /// Replaces the `low` to `high` bit region of `old`.
     ///
     /// The `low` and `high` values form an *inclusive* bit range.
     ///

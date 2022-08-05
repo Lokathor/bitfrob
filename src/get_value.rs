@@ -2,7 +2,7 @@ use crate::get_region::*;
 
 macro_rules! impl_get_value {
   ($fn_name:ident, $t:ty, $region_get_fn:ident) => {
-    /// Get the `low` to `high` bit region of `u` down shifted to be a normal value.
+    /// Get the `low` to `high` bit region of `u`, down shifted by `low`.
     ///
     /// The `low` and `high` values form an *inclusive* bit range.
     ///
