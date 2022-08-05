@@ -32,16 +32,22 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::with_region</span>::<span class="kw-2">*</span>;
 
 <span class="macro">macro_rules!</span> <span class="ident">impl_with_value</span> {
   (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">with_region_fn</span>:<span class="ident">ident</span>) =&gt; {
-    <span class="doccomment">/// Replaces the `low` to `high` bit region of `u_old`, returning the new</span>
-    <span class="doccomment">/// value.</span>
+    <span class="doccomment">/// Replaces the `low` to `high` bit region of `old` with a new value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `low` and `high` values form an *inclusive* bit range.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Bits in `u_replace` outside of the region have no effect.</span>
+    <span class="doccomment">/// The `replacement` value is up shifted by `low` bits so that it will be</span>
+    <span class="doccomment">/// based at the base of the bit region.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If the `replacement` exceeds the bits allowed by the region they will be</span>
+    <span class="doccomment">/// truncated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Panics</span>
     <span class="doccomment">/// * `low` and `high` can&#39;t exceed the number of bits in the type.</span>
@@ -55,8 +61,8 @@
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="ident">low</span>: <span class="ident">u32</span>, <span class="ident">high</span>: <span class="ident">u32</span>, <span class="ident">u_old</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>, <span class="ident">u_replace</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> {
-      <span class="macro-nonterminal">$</span><span class="macro-nonterminal">with_region_fn</span>(<span class="ident">low</span>, <span class="ident">high</span>, <span class="ident">u_old</span>, <span class="ident">u_replace</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">low</span>)
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="ident">low</span>: <span class="ident">u32</span>, <span class="ident">high</span>: <span class="ident">u32</span>, <span class="ident">old</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>, <span class="ident">replacement</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> {
+      <span class="macro-nonterminal">$</span><span class="macro-nonterminal">with_region_fn</span>(<span class="ident">low</span>, <span class="ident">high</span>, <span class="ident">old</span>, <span class="ident">replacement</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">low</span>)
     }
   };
 }
