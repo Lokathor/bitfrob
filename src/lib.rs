@@ -18,9 +18,6 @@
 //!   shifted down on read and up on write so that you can input/output normal
 //!   values and the function will put it in place for you.
 
-mod const_region_mask;
-pub use const_region_mask::*;
-
 mod get_bit;
 pub use get_bit::*;
 
@@ -30,6 +27,18 @@ pub use with_bit::*;
 mod region_mask;
 pub use region_mask::*;
 
+mod get_region;
+pub use get_region::*;
+
+mod with_region;
+pub use with_region::*;
+
+mod get_value;
+pub use get_value::*;
+
+mod with_value;
+pub use with_value::*;
+
 // Note: module name must not match type name!
-//mod u8x2_;
-//pub use u8x2_::*;
+mod u8x2_;
+pub use u8x2_::*;

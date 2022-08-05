@@ -13,24 +13,24 @@ impl u8x2 {
   #[inline]
   #[must_use]
   pub const fn low(self) -> u8 {
-    u16_get_value::<0, 7>(self.0) as u8
+    u16_get_value(0, 7, self.0) as u8
   }
   /// Updates the lower byte value, returning the new `u8x2`
   #[inline]
   #[must_use]
   pub const fn with_low(self, low: u8) -> Self {
-    Self(u16_with_value::<0, 7>(self.0, low as u16))
+    Self(u16_with_value(0, 7, self.0, low as u16))
   }
   /// The upper byte
   #[inline]
   #[must_use]
   pub const fn high(self) -> u8 {
-    u16_get_value::<8, 15>(self.0) as u8
+    u16_get_value(8, 15, self.0) as u8
   }
   /// Updates the upper byte value, returning the new `u8x2`
   #[inline]
   #[must_use]
   pub const fn with_high(self, high: u8) -> Self {
-    Self(u16_with_value::<8, 15>(self.0, high as u16))
+    Self(u16_with_value(8, 15, self.0, high as u16))
   }
 }

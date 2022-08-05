@@ -5,6 +5,9 @@ macro_rules! impl_region_mask {
     /// The `low` and `high` values form an *inclusive* bit range where the mask
     /// bits are 1.
     ///
+    /// This is largely a helper function for other functions in this crate, but
+    /// you can use it yourself if you think it's useful.
+    ///
     /// ## Panics
     /// * `low` and `high` can't exceed the number of bits in the type.
     /// * `low` must be less than `high`.
@@ -31,3 +34,21 @@ impl_region_mask!(u16_region_mask, u16);
 impl_region_mask!(u32_region_mask, u32);
 impl_region_mask!(u64_region_mask, u64);
 impl_region_mask!(u128_region_mask, u128);
+
+/*
+
+backup: we might want to do the ZST associated const thing?
+
+/// Like [`u32_region_mask`], but forces the value into an associated constant.
+///
+/// * Advantage: the compiler is forced to compute the constant at compile time,
+///   regardless of debug level.
+/// * Disadvantage: the `L` and `H` must themselves be constants.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct U32ConstRegionMask<const L: u32, const H: u32>;
+impl<const L: u32, const H: u32> U32ConstRegionMask<L, H> {
+  /// The computed bit mask.
+  pub const OUT: u32 = u32_region_mask(L, H);
+}
+
+*/
