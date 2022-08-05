@@ -2,11 +2,11 @@ use crate::region_mask::*;
 
 macro_rules! impl_with_region {
   ($fn_name:ident, $t:ty, $mask_get_fn:ident) => {
-    /// Replaces the `low` to `high` bit region of `u_old`, returning the new value.
+    /// Replaces the `low` to `high` bit region of `old`, returning the new value.
     ///
     /// The `low` and `high` values form an *inclusive* bit range.
     ///
-    /// Bits in `u_replace` outside of the region have no effect.
+    /// Bits in `replacement` outside of the region have no effect.
     ///
     /// ## Panics
     /// * `low` and `high` can't exceed the number of bits in the type.
@@ -20,9 +20,9 @@ macro_rules! impl_with_region {
     /// ```
     #[inline]
     #[must_use]
-    pub const fn $fn_name(low: u32, high: u32, u_old: $t, u_replace: $t) -> $t {
+    pub const fn $fn_name(low: u32, high: u32, old: $t, replacement: $t) -> $t {
       let mask = $mask_get_fn(low, high);
-      (u_old & !mask) | (u_replace & mask)
+      (old & !mask) | (replacement & mask)
     }
   };
 }

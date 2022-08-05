@@ -2,12 +2,15 @@ use crate::with_region::*;
 
 macro_rules! impl_with_value {
   ($fn_name:ident, $t:ty, $with_region_fn:ident) => {
-    /// Replaces the `low` to `high` bit region of `u_old`, returning the new
-    /// value.
+    /// Replaces the `low` to `high` bit region of `old` with a new value.
     ///
     /// The `low` and `high` values form an *inclusive* bit range.
     ///
-    /// Bits in `u_replace` outside of the region have no effect.
+    /// The `replacement` value is up shifted by `low` bits so that it will be
+    /// based at the base of the bit region.
+    ///
+    /// If the `replacement` exceeds the bits allowed by the region they will be
+    /// truncated.
     ///
     /// ## Panics
     /// * `low` and `high` can't exceed the number of bits in the type.
@@ -21,8 +24,8 @@ macro_rules! impl_with_value {
     /// ```
     #[inline]
     #[must_use]
-    pub const fn $fn_name(low: u32, high: u32, u_old: $t, u_replace: $t) -> $t {
-      $with_region_fn(low, high, u_old, u_replace << low)
+    pub const fn $fn_name(low: u32, high: u32, old: $t, replacement: $t) -> $t {
+      $with_region_fn(low, high, old, replacement << low)
     }
   };
 }
