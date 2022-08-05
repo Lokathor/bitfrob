@@ -9,13 +9,27 @@
 #![warn(clippy::must_use_candidate)]
 
 //! A crate to help with bit manipulation of integers.
+//!
+//! ## Naming Conventions
+//!
+//! * The `bit` function work on a single bit.
+//! * The `region` functions work on multiple adjacent bits.
+//! * The `value` functions are like a `region` but the value is automatically
+//!   shifted down on read and up on write so that you can input/output normal
+//!   values and the function will put it in place for you.
 
 mod const_region_mask;
 pub use const_region_mask::*;
 
-mod fns;
-pub use fns::*;
+mod get_bit;
+pub use get_bit::*;
+
+mod with_bit;
+pub use with_bit::*;
+
+mod region_mask;
+pub use region_mask::*;
 
 // Note: module name must not match type name!
-mod u8x2_;
-pub use u8x2_::*;
+//mod u8x2_;
+//pub use u8x2_::*;
