@@ -17,6 +17,8 @@
 //! * The `value` functions are like a `region` but the value is automatically
 //!   shifted down on read and up on write so that you can input/output normal
 //!   values and the function will put it in place for you.
+//! * `get` reads a value.
+//! * `with` returns a new value.
 
 mod get_bit;
 pub use get_bit::*;
