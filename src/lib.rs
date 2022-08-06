@@ -1,5 +1,6 @@
 #![no_std]
 #![forbid(unsafe_code)]
+#![cfg_attr(test, allow(bad_style))]
 #![warn(missing_copy_implementations)]
 #![warn(missing_debug_implementations)]
 #![warn(missing_docs)]
@@ -44,3 +45,9 @@ pub use with_value::*;
 // Note: module name must not match type name!
 mod u8x2_;
 pub use u8x2_::*;
+
+mod replicate_bits;
+pub use replicate_bits::*;
+
+mod bit_iter;
+pub use bit_iter::*;
