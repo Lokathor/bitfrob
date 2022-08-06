@@ -11,7 +11,7 @@ macro_rules! impl_bit_iter {
     pub struct $name {
       bits: $elem,
       mask: $elem,
-      bits_per_iter: i32,
+      bits_per_iter: u32,
       bits_remaining: i32,
     }
     impl $name {
@@ -30,7 +30,7 @@ macro_rules! impl_bit_iter {
         Self {
           bits,
           mask: $region_mask_fn(0, bits_per_iter - 1),
-          bits_per_iter: bits_per_iter as i32,
+          bits_per_iter,
           bits_remaining: <$elem>::BITS as i32,
         }
       }
@@ -43,8 +43,8 @@ macro_rules! impl_bit_iter {
           None
         } else {
           let out: $elem = self.bits & self.mask;
-          self.bits >>= self.bits_per_iter;
-          self.bits_remaining -= self.bits_per_iter;
+          self.bits = self.bits.wrapping_shr(self.bits_per_iter);
+          self.bits_remaining -= self.bits_per_iter as i32;
           Some(out)
         }
       }
@@ -71,5 +71,9 @@ fn test_U8BitIterLow() {
   assert_eq!(iter.next(), Some(0b111_u8));
   assert_eq!(iter.next(), Some(0b110_u8));
   assert_eq!(iter.next(), Some(0b010_u8));
+  assert_eq!(iter.next(), None);
+
+  let mut iter = U8BitIterLow::from_count_and_bits(8, 0b1011_0111_u8);
+  assert_eq!(iter.next(), Some(0b1011_0111_u8));
   assert_eq!(iter.next(), None);
 }
