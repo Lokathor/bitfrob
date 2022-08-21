@@ -46,53 +46,53 @@
 <span id="46">46</span>
 <span id="47">47</span>
 <span id="48">48</span>
-</pre><pre class="rust"><code><span class="macro">macro_rules!</span> <span class="ident">impl_replicate_bits</span> {
-  (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>) =&gt; {
-    <span class="doccomment">/// Replicates the low `count` bits across the entire value.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If higher bits are set in the input it will not affect the output.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is a form of &quot;sample depth scaling&quot;. If your source data&#39;s bit</span>
-    <span class="doccomment">/// depth is *less* than the full range of a `uX` value (eg, only 5 bits out</span>
-    <span class="doccomment">/// of a `u8`), this function can scale up the sample into the integer&#39;s</span>
-    <span class="doccomment">/// full range.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Panics</span>
-    <span class="doccomment">/// * `count` can&#39;t exceed the number of bits in the type.</span>
-    <span class="doccomment">/// * `count` can&#39;t be 0.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use bitfrob::*;</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u8_replicate_bits(5, 0b0001_0111_u8), 0b1011_1101_u8);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u16_replicate_bits(5, 0b0001_0111_u16), 0b1011_1101_1110_1111_u16);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u32_replicate_bits(5, 0b0001_0111_u32), 0xBDEF_7BDE_u32);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u64_replicate_bits(5, 0b0001_0111_u64), 0xBDEF_7BDE_F7BD_EF7B_u64);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u128_replicate_bits(5, 0b0001_0111_u128), 0xBDEF_7BDE_F7BD_EF7B_DEF7_BDEF_7BDE_F7BD_u128);&quot;</span>)]</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="kw-2">mut</span> <span class="ident">count</span>: <span class="ident">u32</span>, <span class="ident">u</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> {
-      <span class="macro">assert!</span>(<span class="ident">count</span> <span class="op">&lt;</span> <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span><span class="ident">::BITS</span>);
-      <span class="macro">assert!</span>(<span class="ident">count</span> <span class="op">&gt;</span> <span class="number">0</span>);
-      <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out_count</span> <span class="op">=</span> <span class="ident">count</span>;
-      <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">u</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span><span class="ident">::BITS</span> <span class="op">-</span> <span class="ident">count</span>);
-      <span class="kw">while</span> <span class="ident">out_count</span> <span class="op">&lt;</span> <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span><span class="ident">::BITS</span> {
-        <span class="ident">out</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">out</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">count</span>);
-        <span class="ident">out_count</span> <span class="op">+</span><span class="op">=</span> <span class="ident">count</span>;
-        <span class="comment">// Note(Lokathor): As the output builds the number of &quot;good&quot; bits can</span>
-        <span class="comment">// double each time, which helps when small starting bits are replicated</span>
-        <span class="comment">// across the larger int types.</span>
-        <span class="ident">count</span> <span class="kw-2">*</span><span class="op">=</span> <span class="number">2</span>;
+</pre><pre class="rust"><code><span class="macro">macro_rules!</span> impl_replicate_bits {
+  (<span class="macro-nonterminal">$fn_name</span>:ident, <span class="macro-nonterminal">$t</span>:ty) =&gt; {
+    <span class="doccomment">/// Replicates the low `count` bits across the entire value.
+    ///
+    /// If higher bits are set in the input it will not affect the output.
+    ///
+    /// This is a form of &quot;sample depth scaling&quot;. If your source data&#39;s bit
+    /// depth is *less* than the full range of a `uX` value (eg, only 5 bits out
+    /// of a `u8`), this function can scale up the sample into the integer&#39;s
+    /// full range.
+    ///
+    /// ## Panics
+    /// * `count` can&#39;t exceed the number of bits in the type.
+    /// * `count` can&#39;t be 0.
+    ///
+    /// ```
+    /// # use bitfrob::*;
+    </span><span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u8_replicate_bits(5, 0b0001_0111_u8), 0b1011_1101_u8);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u16_replicate_bits(5, 0b0001_0111_u16), 0b1011_1101_1110_1111_u16);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u32_replicate_bits(5, 0b0001_0111_u32), 0xBDEF_7BDE_u32);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u64_replicate_bits(5, 0b0001_0111_u64), 0xBDEF_7BDE_F7BD_EF7B_u64);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(u128_replicate_bits(5, 0b0001_0111_u128), 0xBDEF_7BDE_F7BD_EF7B_DEF7_BDEF_7BDE_F7BD_u128);&quot;</span>)]</span>
+    <span class="doccomment">/// ```
+    </span><span class="attribute">#[inline]</span>
+    <span class="attribute">#[must_use]</span>
+    <span class="kw">pub fn </span><span class="macro-nonterminal">$fn_name</span>(<span class="kw-2">mut </span>count: u32, u: <span class="macro-nonterminal">$t</span>) -&gt; <span class="macro-nonterminal">$t </span>{
+      <span class="macro">assert!</span>(count &lt; &lt;<span class="macro-nonterminal">$t</span>&gt;::BITS);
+      <span class="macro">assert!</span>(count &gt; <span class="number">0</span>);
+      <span class="kw">let </span><span class="kw-2">mut </span>out_count = count;
+      <span class="kw">let </span><span class="kw-2">mut </span>out = u &lt;&lt; (&lt;<span class="macro-nonterminal">$t</span>&gt;::BITS - count);
+      <span class="kw">while </span>out_count &lt; &lt;<span class="macro-nonterminal">$t</span>&gt;::BITS {
+        out |= (out &gt;&gt; count);
+        out_count += count;
+        <span class="comment">// Note(Lokathor): As the output builds the number of &quot;good&quot; bits can
+        // double each time, which helps when small starting bits are replicated
+        // across the larger int types.
+        </span>count <span class="kw-2">*</span>= <span class="number">2</span>;
       }
-      <span class="ident">out</span>
+      out
     }
   };
 }
 
-<span class="macro">impl_replicate_bits!</span>(<span class="ident">u8_replicate_bits</span>, <span class="ident">u8</span>);
-<span class="macro">impl_replicate_bits!</span>(<span class="ident">u16_replicate_bits</span>, <span class="ident">u16</span>);
-<span class="macro">impl_replicate_bits!</span>(<span class="ident">u32_replicate_bits</span>, <span class="ident">u32</span>);
-<span class="macro">impl_replicate_bits!</span>(<span class="ident">u64_replicate_bits</span>, <span class="ident">u64</span>);
-<span class="macro">impl_replicate_bits!</span>(<span class="ident">u128_replicate_bits</span>, <span class="ident">u128</span>);
+<span class="macro">impl_replicate_bits!</span>(u8_replicate_bits, u8);
+<span class="macro">impl_replicate_bits!</span>(u16_replicate_bits, u16);
+<span class="macro">impl_replicate_bits!</span>(u32_replicate_bits, u32);
+<span class="macro">impl_replicate_bits!</span>(u64_replicate_bits, u64);
+<span class="macro">impl_replicate_bits!</span>(u128_replicate_bits, u128);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (affe0d3a0 2022-08-05)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (878aef79d 2022-08-20)" ></div></body></html>

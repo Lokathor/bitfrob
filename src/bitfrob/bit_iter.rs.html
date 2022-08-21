@@ -77,84 +77,84 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::region_mask</span>::<span class="kw-2">*</span>;
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::region_mask::<span class="kw-2">*</span>;
 
-<span class="macro">macro_rules!</span> <span class="ident">impl_bit_iter</span> {
-  (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">region_mask_fn</span>:<span class="ident">ident</span>) =&gt; {
-    <span class="doccomment">/// An iterator that will give out bit groups from within an integer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// * Bits are iterated from *low* to *high*.</span>
-    <span class="doccomment">/// * The number of bits per iteration does *not* have to be an even divisor</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_copy_implementations</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
-      <span class="ident">bits</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span>,
-      <span class="ident">mask</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span>,
-      <span class="ident">bits_per_iter</span>: <span class="ident">u32</span>,
-      <span class="ident">bits_remaining</span>: <span class="ident">i32</span>,
+<span class="macro">macro_rules!</span> impl_bit_iter {
+  (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$elem</span>:ty, <span class="macro-nonterminal">$region_mask_fn</span>:ident) =&gt; {
+    <span class="doccomment">/// An iterator that will give out bit groups from within an integer.
+    ///
+    /// * Bits are iterated from *low* to *high*.
+    /// * The number of bits per iteration does *not* have to be an even divisor
+    </span><span class="attribute">#[derive(Debug, Clone)]</span>
+    <span class="attribute">#[allow(missing_copy_implementations)]</span>
+    <span class="kw">pub struct </span><span class="macro-nonterminal">$name </span>{
+      bits: <span class="macro-nonterminal">$elem</span>,
+      mask: <span class="macro-nonterminal">$elem</span>,
+      bits_per_iter: u32,
+      bits_remaining: i32,
     }
-    <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
-      <span class="doccomment">/// Constructs a new iterator for `bits_per_iter` at a time out of the</span>
-      <span class="doccomment">/// `bits` value.</span>
-      <span class="doccomment">///</span>
-      <span class="doccomment">/// ## Panics</span>
-      <span class="doccomment">/// * `bits_per_iter` must be greater than 0.</span>
-      <span class="doccomment">/// * `bits_per_iter` must be less than or equal to the number of bits in</span>
-      <span class="doccomment">///   the type.</span>
-      <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">from_count_and_bits</span>(
-        <span class="ident">bits_per_iter</span>: <span class="ident">u32</span>, <span class="ident">bits</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span>,
-      ) -&gt; <span class="self">Self</span> {
-        <span class="macro">assert!</span>(<span class="ident">bits_per_iter</span> <span class="op">&gt;</span> <span class="number">0</span>);
-        <span class="macro">assert!</span>(<span class="ident">bits_per_iter</span> <span class="op">&lt;</span><span class="op">=</span> <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span><span class="op">&gt;</span><span class="ident">::BITS</span>);
-        <span class="self">Self</span> {
-          <span class="ident">bits</span>,
-          <span class="ident">mask</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">region_mask_fn</span>(<span class="number">0</span>, <span class="ident">bits_per_iter</span> <span class="op">-</span> <span class="number">1</span>),
-          <span class="ident">bits_per_iter</span>,
-          <span class="ident">bits_remaining</span>: <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span><span class="op">&gt;</span><span class="ident">::BITS</span> <span class="kw">as</span> <span class="ident">i32</span>,
+    <span class="kw">impl </span><span class="macro-nonterminal">$name </span>{
+      <span class="doccomment">/// Constructs a new iterator for `bits_per_iter` at a time out of the
+      /// `bits` value.
+      ///
+      /// ## Panics
+      /// * `bits_per_iter` must be greater than 0.
+      /// * `bits_per_iter` must be less than or equal to the number of bits in
+      ///   the type.
+      </span><span class="kw">pub const fn </span>from_count_and_bits(
+        bits_per_iter: u32, bits: <span class="macro-nonterminal">$elem</span>,
+      ) -&gt; <span class="self">Self </span>{
+        <span class="macro">assert!</span>(bits_per_iter &gt; <span class="number">0</span>);
+        <span class="macro">assert!</span>(bits_per_iter &lt;= &lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS);
+        <span class="self">Self </span>{
+          bits,
+          mask: <span class="macro-nonterminal">$region_mask_fn</span>(<span class="number">0</span>, bits_per_iter - <span class="number">1</span>),
+          bits_per_iter,
+          bits_remaining: &lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS <span class="kw">as </span>i32,
         }
       }
     }
-    <span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
-      <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span>;
-      <span class="attribute">#[<span class="ident">inline</span>]</span>
-      <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bits_remaining</span> <span class="op">&lt;</span> <span class="number">1</span> {
-          <span class="prelude-val">None</span>
-        } <span class="kw">else</span> {
-          <span class="kw">let</span> <span class="ident">out</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">elem</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bits</span> <span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">mask</span>;
-          <span class="self">self</span>.<span class="ident">bits</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bits</span>.<span class="ident">wrapping_shr</span>(<span class="self">self</span>.<span class="ident">bits_per_iter</span>);
-          <span class="self">self</span>.<span class="ident">bits_remaining</span> <span class="op">-</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">bits_per_iter</span> <span class="kw">as</span> <span class="ident">i32</span>;
-          <span class="prelude-val">Some</span>(<span class="ident">out</span>)
+    <span class="kw">impl </span>Iterator <span class="kw">for </span><span class="macro-nonterminal">$name </span>{
+      <span class="kw">type </span>Item = <span class="macro-nonterminal">$elem</span>;
+      <span class="attribute">#[inline]</span>
+      <span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$elem</span>&gt; {
+        <span class="kw">if </span><span class="self">self</span>.bits_remaining &lt; <span class="number">1 </span>{
+          <span class="prelude-val">None
+        </span>} <span class="kw">else </span>{
+          <span class="kw">let </span>out: <span class="macro-nonterminal">$elem </span>= <span class="self">self</span>.bits &amp; <span class="self">self</span>.mask;
+          <span class="self">self</span>.bits = <span class="self">self</span>.bits.wrapping_shr(<span class="self">self</span>.bits_per_iter);
+          <span class="self">self</span>.bits_remaining -= <span class="self">self</span>.bits_per_iter <span class="kw">as </span>i32;
+          <span class="prelude-val">Some</span>(out)
         }
       }
     }
   };
 }
 
-<span class="macro">impl_bit_iter!</span>(<span class="ident">U8BitIterLow</span>, <span class="ident">u8</span>, <span class="ident">u8_region_mask</span>);
-<span class="macro">impl_bit_iter!</span>(<span class="ident">U16BitIterLow</span>, <span class="ident">u16</span>, <span class="ident">u16_region_mask</span>);
-<span class="macro">impl_bit_iter!</span>(<span class="ident">U32BitIterLow</span>, <span class="ident">u32</span>, <span class="ident">u32_region_mask</span>);
-<span class="macro">impl_bit_iter!</span>(<span class="ident">U64BitIterLow</span>, <span class="ident">u64</span>, <span class="ident">u64_region_mask</span>);
-<span class="macro">impl_bit_iter!</span>(<span class="ident">U128BitIterLow</span>, <span class="ident">u128</span>, <span class="ident">u128_region_mask</span>);
+<span class="macro">impl_bit_iter!</span>(U8BitIterLow, u8, u8_region_mask);
+<span class="macro">impl_bit_iter!</span>(U16BitIterLow, u16, u16_region_mask);
+<span class="macro">impl_bit_iter!</span>(U32BitIterLow, u32, u32_region_mask);
+<span class="macro">impl_bit_iter!</span>(U64BitIterLow, u64, u64_region_mask);
+<span class="macro">impl_bit_iter!</span>(U128BitIterLow, u128, u128_region_mask);
 
-<span class="attribute">#[<span class="ident">test</span>]</span>
-<span class="kw">fn</span> <span class="ident">test_U8BitIterLow</span>() {
-  <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">U8BitIterLow::from_count_and_bits</span>(<span class="number">2</span>, <span class="number">0b1011_0111_u8</span>);
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b01_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b10_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">None</span>);
+<span class="attribute">#[test]</span>
+<span class="kw">fn </span>test_U8BitIterLow() {
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">2</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b01_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b10_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 
-  <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">U8BitIterLow::from_count_and_bits</span>(<span class="number">3</span>, <span class="number">0b1011_0111_u8</span>);
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b111_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b110_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b010_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">None</span>);
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">3</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b111_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b110_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b010_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 
-  <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">U8BitIterLow::from_count_and_bits</span>(<span class="number">8</span>, <span class="number">0b1011_0111_u8</span>);
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="number">0b1011_0111_u8</span>));
-  <span class="macro">assert_eq!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">None</span>);
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">8</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b1011_0111_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (affe0d3a0 2022-08-05)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (878aef79d 2022-08-20)" ></div></body></html>

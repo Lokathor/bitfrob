@@ -30,37 +30,37 @@
 <span id="30">30</span>
 <span id="31">31</span>
 <span id="32">32</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::region_mask</span>::<span class="kw-2">*</span>;
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::region_mask::<span class="kw-2">*</span>;
 
-<span class="macro">macro_rules!</span> <span class="ident">impl_get_region</span> {
-  (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">mask_get_fn</span>:<span class="ident">ident</span>) =&gt; {
-    <span class="doccomment">/// Get the `low` to `high` bit region of `u`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The `low` and `high` values form an *inclusive* bit range.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Panics</span>
-    <span class="doccomment">/// * `low` and `high` can&#39;t exceed the number of bits in the type.</span>
-    <span class="doccomment">/// * `low` must be less than `high`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use bitfrob::*;</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(0, 2, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>), <span class="string">&quot;::MAX), 0b0000_0111_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>),<span class="string">&quot;);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(1, 3, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>), <span class="string">&quot;::MAX), 0b0000_1110_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>),<span class="string">&quot;);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(4, 7, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>), <span class="string">&quot;::MAX), 0b1111_0000_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>),<span class="string">&quot;);&quot;</span>)]</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="ident">low</span>: <span class="ident">u32</span>, <span class="ident">high</span>: <span class="ident">u32</span>, <span class="ident">u</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> {
-      <span class="kw">let</span> <span class="ident">mask</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">mask_get_fn</span>(<span class="ident">low</span>, <span class="ident">high</span>);
-      (<span class="ident">u</span> <span class="op">&amp;</span> <span class="ident">mask</span>)
+<span class="macro">macro_rules!</span> impl_get_region {
+  (<span class="macro-nonterminal">$fn_name</span>:ident, <span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$mask_get_fn</span>:ident) =&gt; {
+    <span class="doccomment">/// Get the `low` to `high` bit region of `u`.
+    ///
+    /// The `low` and `high` values form an *inclusive* bit range.
+    ///
+    /// ## Panics
+    /// * `low` and `high` can&#39;t exceed the number of bits in the type.
+    /// * `low` must be less than `high`.
+    ///
+    /// ```
+    /// # use bitfrob::*;
+    </span><span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(0, 2, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>), <span class="string">&quot;::MAX), 0b0000_0111_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>),<span class="string">&quot;);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(1, 3, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>), <span class="string">&quot;::MAX), 0b0000_1110_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>),<span class="string">&quot;);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(4, 7, &quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>), <span class="string">&quot;::MAX), 0b1111_0000_&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$t</span>),<span class="string">&quot;);&quot;</span>)]</span>
+    <span class="doccomment">/// ```
+    </span><span class="attribute">#[inline]</span>
+    <span class="attribute">#[must_use]</span>
+    <span class="kw">pub const fn </span><span class="macro-nonterminal">$fn_name</span>(low: u32, high: u32, u: <span class="macro-nonterminal">$t</span>) -&gt; <span class="macro-nonterminal">$t </span>{
+      <span class="kw">let </span>mask = <span class="macro-nonterminal">$mask_get_fn</span>(low, high);
+      (u &amp; mask)
     }
   };
 }
 
-<span class="macro">impl_get_region!</span>(<span class="ident">u8_get_region</span>, <span class="ident">u8</span>, <span class="ident">u8_region_mask</span>);
-<span class="macro">impl_get_region!</span>(<span class="ident">u16_get_region</span>, <span class="ident">u16</span>, <span class="ident">u16_region_mask</span>);
-<span class="macro">impl_get_region!</span>(<span class="ident">u32_get_region</span>, <span class="ident">u32</span>, <span class="ident">u32_region_mask</span>);
-<span class="macro">impl_get_region!</span>(<span class="ident">u64_get_region</span>, <span class="ident">u64</span>, <span class="ident">u64_region_mask</span>);
-<span class="macro">impl_get_region!</span>(<span class="ident">u128_get_region</span>, <span class="ident">u128</span>, <span class="ident">u128_region_mask</span>);
+<span class="macro">impl_get_region!</span>(u8_get_region, u8, u8_region_mask);
+<span class="macro">impl_get_region!</span>(u16_get_region, u16, u16_region_mask);
+<span class="macro">impl_get_region!</span>(u32_get_region, u32, u32_region_mask);
+<span class="macro">impl_get_region!</span>(u64_get_region, u64, u64_region_mask);
+<span class="macro">impl_get_region!</span>(u128_get_region, u128, u128_region_mask);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (affe0d3a0 2022-08-05)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (878aef79d 2022-08-20)" ></div></body></html>

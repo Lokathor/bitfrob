@@ -35,42 +35,42 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::with_region</span>::<span class="kw-2">*</span>;
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::with_region::<span class="kw-2">*</span>;
 
-<span class="macro">macro_rules!</span> <span class="ident">impl_with_value</span> {
-  (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">with_region_fn</span>:<span class="ident">ident</span>) =&gt; {
-    <span class="doccomment">/// Replaces the `low` to `high` bit region of `old` with an input up shifted by `low`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The `low` and `high` values form an *inclusive* bit range.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The `replacement` value is up shifted by `low` bits so that it will be</span>
-    <span class="doccomment">/// based at the base of the bit region.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If the `replacement` exceeds the bits allowed by the region they will be</span>
-    <span class="doccomment">/// truncated.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Panics</span>
-    <span class="doccomment">/// * `low` and `high` can&#39;t exceed the number of bits in the type.</span>
-    <span class="doccomment">/// * `low` must be less than `high`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use bitfrob::*;</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(0, 2, 0, 1), 1 &lt;&lt; 0);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(1, 3, 0, 1), 1 &lt;&lt; 1);&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>), <span class="string">&quot;(4, 7, 0, 1), 1 &lt;&lt; 4);&quot;</span>)]</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="ident">low</span>: <span class="ident">u32</span>, <span class="ident">high</span>: <span class="ident">u32</span>, <span class="ident">old</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>, <span class="ident">replacement</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> {
-      <span class="macro-nonterminal">$</span><span class="macro-nonterminal">with_region_fn</span>(<span class="ident">low</span>, <span class="ident">high</span>, <span class="ident">old</span>, <span class="ident">replacement</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">low</span>)
+<span class="macro">macro_rules!</span> impl_with_value {
+  (<span class="macro-nonterminal">$fn_name</span>:ident, <span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$with_region_fn</span>:ident) =&gt; {
+    <span class="doccomment">/// Replaces the `low` to `high` bit region of `old` with an input up shifted by `low`.
+    ///
+    /// The `low` and `high` values form an *inclusive* bit range.
+    ///
+    /// The `replacement` value is up shifted by `low` bits so that it will be
+    /// based at the base of the bit region.
+    ///
+    /// If the `replacement` exceeds the bits allowed by the region they will be
+    /// truncated.
+    ///
+    /// ## Panics
+    /// * `low` and `high` can&#39;t exceed the number of bits in the type.
+    /// * `low` must be less than `high`.
+    ///
+    /// ```
+    /// # use bitfrob::*;
+    </span><span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(0, 2, 0, 1), 1 &lt;&lt; 0);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(1, 3, 0, 1), 1 &lt;&lt; 1);&quot;</span>)]</span>
+    <span class="attribute">#[doc = <span class="macro">concat!</span>(<span class="string">&quot;assert_eq!(&quot;</span>,<span class="macro">stringify!</span>(<span class="macro-nonterminal">$fn_name</span>), <span class="string">&quot;(4, 7, 0, 1), 1 &lt;&lt; 4);&quot;</span>)]</span>
+    <span class="doccomment">/// ```
+    </span><span class="attribute">#[inline]</span>
+    <span class="attribute">#[must_use]</span>
+    <span class="kw">pub const fn </span><span class="macro-nonterminal">$fn_name</span>(low: u32, high: u32, old: <span class="macro-nonterminal">$t</span>, replacement: <span class="macro-nonterminal">$t</span>) -&gt; <span class="macro-nonterminal">$t </span>{
+      <span class="macro-nonterminal">$with_region_fn</span>(low, high, old, replacement &lt;&lt; low)
     }
   };
 }
 
-<span class="macro">impl_with_value!</span>(<span class="ident">u8_with_value</span>, <span class="ident">u8</span>, <span class="ident">u8_with_region</span>);
-<span class="macro">impl_with_value!</span>(<span class="ident">u16_with_value</span>, <span class="ident">u16</span>, <span class="ident">u16_with_region</span>);
-<span class="macro">impl_with_value!</span>(<span class="ident">u32_with_value</span>, <span class="ident">u32</span>, <span class="ident">u32_with_region</span>);
-<span class="macro">impl_with_value!</span>(<span class="ident">u64_with_value</span>, <span class="ident">u64</span>, <span class="ident">u64_with_region</span>);
-<span class="macro">impl_with_value!</span>(<span class="ident">u128_with_value</span>, <span class="ident">u128</span>, <span class="ident">u128_with_region</span>);
+<span class="macro">impl_with_value!</span>(u8_with_value, u8, u8_with_region);
+<span class="macro">impl_with_value!</span>(u16_with_value, u16, u16_with_region);
+<span class="macro">impl_with_value!</span>(u32_with_value, u32, u32_with_region);
+<span class="macro">impl_with_value!</span>(u64_with_value, u64, u64_with_region);
+<span class="macro">impl_with_value!</span>(u128_with_value, u128, u128_with_region);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (affe0d3a0 2022-08-05)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bitfrob" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (878aef79d 2022-08-20)" ></div></body></html>
