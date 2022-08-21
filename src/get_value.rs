@@ -21,7 +21,7 @@ macro_rules! impl_get_value {
     #[inline]
     #[must_use]
     pub const fn $fn_name(low: u32, high: u32, u: $t) -> $t {
-      $region_get_fn(low, high, u) >> low
+      $region_get_fn(0, high-low, u >> low)
     }
   };
 }
