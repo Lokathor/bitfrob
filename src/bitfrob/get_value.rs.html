@@ -54,7 +54,7 @@
     </span><span class="attribute">#[inline]</span>
     <span class="attribute">#[must_use]</span>
     <span class="kw">pub const fn </span><span class="macro-nonterminal">$fn_name</span>(low: u32, high: u32, u: <span class="macro-nonterminal">$t</span>) -&gt; <span class="macro-nonterminal">$t </span>{
-      <span class="macro-nonterminal">$region_get_fn</span>(low, high, u) &gt;&gt; low
+      <span class="macro-nonterminal">$region_get_fn</span>(<span class="number">0</span>, high-low, u &gt;&gt; low)
     }
   };
 }
