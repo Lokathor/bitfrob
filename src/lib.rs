@@ -49,5 +49,5 @@ pub use u8x2_::*;
 mod replicate_bits;
 pub use replicate_bits::*;
 
-mod bit_iter;
-pub use bit_iter::*;
+mod bit_iter_low;
+pub use bit_iter_low::*;

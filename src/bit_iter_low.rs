@@ -1,11 +1,12 @@
 use crate::region_mask::*;
 
-macro_rules! impl_bit_iter {
+macro_rules! impl_bit_iter_low {
   ($name:ident, $elem:ty, $region_mask_fn:ident) => {
-    /// An iterator that will give out bit groups from within an integer.
+    /// Iterator for groups of bits in an integer (low to high).
     ///
-    /// * Bits are iterated from *low* to *high*.
-    /// * The number of bits per iteration does *not* have to be an even divisor
+    /// The number of bits per iteration does *not* have to be an even divisor.
+    /// If it's not, the final output will simply have a partial number of
+    /// significant bits.
     #[derive(Debug, Clone)]
     #[allow(missing_copy_implementations)]
     pub struct $name {
@@ -55,11 +56,11 @@ macro_rules! impl_bit_iter {
   };
 }
 
-impl_bit_iter!(U8BitIterLow, u8, u8_region_mask);
-impl_bit_iter!(U16BitIterLow, u16, u16_region_mask);
-impl_bit_iter!(U32BitIterLow, u32, u32_region_mask);
-impl_bit_iter!(U64BitIterLow, u64, u64_region_mask);
-impl_bit_iter!(U128BitIterLow, u128, u128_region_mask);
+impl_bit_iter_low!(U8BitIterLow, u8, u8_region_mask);
+impl_bit_iter_low!(U16BitIterLow, u16, u16_region_mask);
+impl_bit_iter_low!(U32BitIterLow, u32, u32_region_mask);
+impl_bit_iter_low!(U64BitIterLow, u64, u64_region_mask);
+impl_bit_iter_low!(U128BitIterLow, u128, u128_region_mask);
 
 #[test]
 fn test_U8BitIterLow() {
