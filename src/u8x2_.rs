@@ -2,8 +2,8 @@ use crate::*;
 
 /// Two `u8` values packed as a `u16`.
 ///
-/// This forces the data to have an alignment of 2, while keeping volatile reads
-/// and writes as a single access (depending on CPU).
+/// Compared to using `[u8; 2]`, this forces the data to have an alignment of 2,
+/// and also keeps volatile reads and writes as a single access (when possible).
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[allow(non_camel_case_types)]
 #[repr(transparent)]
