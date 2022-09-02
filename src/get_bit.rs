@@ -12,6 +12,7 @@ macro_rules! impl_get_bit {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub const fn $fn_name(b: u32, u: $t) -> bool {
       assert!(b < <$t>::BITS);
       let mask = 1 << b;

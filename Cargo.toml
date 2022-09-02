@@ -9,3 +9,6 @@ categories = ["no-std"]
 
 [dependencies]
 # none!
+
+[features]
+track_caller = [] # adds `track_caller` attribute on fns that assert things. This can mess up inlining, probably only use this for debugging.

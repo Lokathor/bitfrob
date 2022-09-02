@@ -6,6 +6,7 @@ macro_rules! impl_with_bit {
     /// * `b` can't exceed the number of bits in the type.
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub const fn $fn_name(b: u32, u: $t, is_set: bool) -> $t {
       assert!(b < <$t>::BITS);
       let mask = 1 << b;

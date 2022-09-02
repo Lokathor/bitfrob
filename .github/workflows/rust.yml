@@ -24,4 +24,6 @@ jobs:
       with:
         rust-version: ${{ matrix.rust }}
     - uses: actions/checkout@v2
-    - run: cargo test --verbose
+    - run: cargo check
+    - run: cargo check --feature="track_caller"
+    - run: cargo test --all-features

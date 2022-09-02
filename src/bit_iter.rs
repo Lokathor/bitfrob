@@ -24,6 +24,7 @@ macro_rules! impl_bit_iter {
       ///   the type.
       #[inline]
       #[must_use]
+      #[cfg_attr(feature = "track_caller", track_caller)]
       pub const fn from_count_and_bits(
         bits_per_iter: u32, bits: $elem,
       ) -> Self {

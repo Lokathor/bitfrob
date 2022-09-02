@@ -23,6 +23,7 @@ macro_rules! impl_replicate_bits {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub fn $fn_name(mut count: u32, u: $t) -> $t {
       assert!(count <= <$t>::BITS);
       assert!(count > 0);
