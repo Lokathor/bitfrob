@@ -1,11 +1,12 @@
 [package]
 name = "bitfrob"
-description = "Helps you frob those bits"
+description = "A sibling crate for `bytemuck`, this is where forbid(unsafe_code) utilities live."
 version = "0.2.2"
 edition = "2021"
 repository = "https://github.com/Lokathor/bitfrob"
 license = "Zlib OR Apache-2.0 OR MIT"
 categories = ["no-std"]
+keywords = ["bits", "bit", "frob", "bytemuck"]
 
 [dependencies]
 # none!
