@@ -24,6 +24,7 @@ macro_rules! impl_with_value {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub const fn $fn_name(low: u32, high: u32, old: $t, replacement: $t) -> $t {
       $with_region_fn(low, high, old, replacement << low)
     }

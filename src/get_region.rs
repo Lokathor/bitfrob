@@ -18,6 +18,7 @@ macro_rules! impl_get_region {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub const fn $fn_name(low: u32, high: u32, u: $t) -> $t {
       let mask = $mask_get_fn(low, high);
       (u & mask)

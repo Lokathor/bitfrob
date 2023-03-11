@@ -23,8 +23,9 @@ macro_rules! impl_replicate_bits {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub fn $fn_name(mut count: u32, u: $t) -> $t {
-      assert!(count < <$t>::BITS);
+      assert!(count <= <$t>::BITS);
       assert!(count > 0);
       let mut out_count = count;
       let mut out = u << (<$t>::BITS - count);
@@ -46,3 +47,9 @@ impl_replicate_bits!(u16_replicate_bits, u16);
 impl_replicate_bits!(u32_replicate_bits, u32);
 impl_replicate_bits!(u64_replicate_bits, u64);
 impl_replicate_bits!(u128_replicate_bits, u128);
+
+#[test]
+fn test_replicate_bits_allows_full_bits() {
+  // test passes if this doesn't panic
+  let _ = u8_replicate_bits(8, 0xFF);
+}

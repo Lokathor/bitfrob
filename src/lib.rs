@@ -20,6 +20,15 @@
 //!   values and the function will put it in place for you.
 //! * `get` reads a value.
 //! * `with` returns a new value.
+//!
+//! ## Features
+//! * `track_caller` adds the [`#[track_caller]`][ref-track_caller] attribute on
+//!   all the functions that assert stuff. Note that using the `track_caller`
+//!   attribute can give LLVM trouble with inlining, so it's suggested that you
+//!   only use this feature as necessary during debugging.
+//!
+//! [ref-track_caller]:
+//!     https://doc.rust-lang.org/reference/attributes/codegen.html#the-track_caller-attribute
 
 mod get_bit;
 pub use get_bit::*;
@@ -49,5 +58,5 @@ pub use u8x2_::*;
 mod replicate_bits;
 pub use replicate_bits::*;
 
-mod bit_iter;
-pub use bit_iter::*;
+mod bit_iter_low;
+pub use bit_iter_low::*;

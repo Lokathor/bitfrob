@@ -20,6 +20,7 @@ macro_rules! impl_region_mask {
     /// ```
     #[inline]
     #[must_use]
+    #[cfg_attr(feature = "track_caller", track_caller)]
     pub const fn $fn_name(low: u32, high: u32) -> $t {
       assert!(low < <$t>::BITS);
       assert!(high < <$t>::BITS);

@@ -1,11 +1,14 @@
 [package]
 name = "bitfrob"
-description = "Helps you frob those bits"
-version = "0.2.2"
+description = "A sibling crate for `bytemuck`, this is where forbid(unsafe_code) utilities live."
+version = "1.0.0"
 edition = "2021"
 repository = "https://github.com/Lokathor/bitfrob"
 license = "Zlib OR Apache-2.0 OR MIT"
 categories = ["no-std"]
+keywords = ["bits", "bit", "frob", "bytemuck"]
 
-[dependencies]
-# none!
+[features]
+# adds `track_caller` attribute on fns that assert things.
+# I'm told this can mess up inlining and stuff, so it's optional.
+track_caller = []
