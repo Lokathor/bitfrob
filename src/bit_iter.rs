@@ -22,6 +22,8 @@ macro_rules! impl_bit_iter {
       /// * `bits_per_iter` must be greater than 0.
       /// * `bits_per_iter` must be less than or equal to the number of bits in
       ///   the type.
+      #[inline]
+      #[must_use]
       pub const fn from_count_and_bits(
         bits_per_iter: u32, bits: $elem,
       ) -> Self {
