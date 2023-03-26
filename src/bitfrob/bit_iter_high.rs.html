@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/bit_iter_low.rs`."><title>bit_iter_low.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-d8cc97c322676e1b.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="bitfrob" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (8be3c2bda 2023-03-24)" data-search-js="search-0db6af764fd5e08b.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../bitfrob/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/bit_iter_high.rs`."><title>bit_iter_high.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-d8cc97c322676e1b.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="bitfrob" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (8be3c2bda 2023-03-24)" data-search-js="search-0db6af764fd5e08b.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../bitfrob/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -85,9 +85,11 @@
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
 <a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::region_mask::<span class="kw-2">*</span>;
 
-<span class="macro">macro_rules! </span>impl_bit_iter_low {
+<span class="macro">macro_rules! </span>impl_bit_iter_high {
   (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$elem</span>:ty, <span class="macro-nonterminal">$region_mask_fn</span>:ident) =&gt; {
     <span class="doccomment">/// Iterator for groups of bits in an integer (low to high).
     ///
@@ -108,7 +110,7 @@
       ///
       /// If `bits_per_iter` doesn&#39;t divide evenly into the number of bits in
       /// the type then the final output of the iterator will be the partial
-      /// chunk of bits aligned to the *low* end of the bit span.
+      /// chunk of bits aligned to the *high* end of the bit span.
       ///
       /// ## Panics
       /// * `bits_per_iter` must be greater than 0.
@@ -124,7 +126,8 @@
         <span class="macro">assert!</span>(bits_per_iter &lt;= &lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS);
         <span class="self">Self </span>{
           bits,
-          mask: <span class="macro-nonterminal">$region_mask_fn</span>(<span class="number">0</span>, bits_per_iter - <span class="number">1</span>),
+          mask: <span class="macro-nonterminal">$region_mask_fn</span>(<span class="number">0</span>, bits_per_iter - <span class="number">1</span>)
+            &lt;&lt; (&lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS - bits_per_iter),
           bits_per_iter,
           bits_remaining: &lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS <span class="kw">as </span>i32,
         }
@@ -137,8 +140,9 @@
         <span class="kw">if </span><span class="self">self</span>.bits_remaining &lt; <span class="number">1 </span>{
           <span class="prelude-val">None
         </span>} <span class="kw">else </span>{
-          <span class="kw">let </span>out: <span class="macro-nonterminal">$elem </span>= <span class="self">self</span>.bits &amp; <span class="self">self</span>.mask;
-          <span class="self">self</span>.bits = <span class="self">self</span>.bits.wrapping_shr(<span class="self">self</span>.bits_per_iter);
+          <span class="kw">let </span>out: <span class="macro-nonterminal">$elem </span>=
+            (<span class="self">self</span>.bits &amp; <span class="self">self</span>.mask) &gt;&gt; (&lt;<span class="macro-nonterminal">$elem</span>&gt;::BITS - <span class="self">self</span>.bits_per_iter);
+          <span class="self">self</span>.bits = <span class="self">self</span>.bits.wrapping_shl(<span class="self">self</span>.bits_per_iter);
           <span class="self">self</span>.bits_remaining -= <span class="self">self</span>.bits_per_iter <span class="kw">as </span>i32;
           <span class="prelude-val">Some</span>(out)
         }
@@ -147,28 +151,28 @@
   };
 }
 
-<span class="macro">impl_bit_iter_low!</span>(U8BitIterLow, u8, u8_region_mask);
-<span class="macro">impl_bit_iter_low!</span>(U16BitIterLow, u16, u16_region_mask);
-<span class="macro">impl_bit_iter_low!</span>(U32BitIterLow, u32, u32_region_mask);
-<span class="macro">impl_bit_iter_low!</span>(U64BitIterLow, u64, u64_region_mask);
-<span class="macro">impl_bit_iter_low!</span>(U128BitIterLow, u128, u128_region_mask);
+<span class="macro">impl_bit_iter_high!</span>(U8BitIterHigh, u8, u8_region_mask);
+<span class="macro">impl_bit_iter_high!</span>(U16BitIterHigh, u16, u16_region_mask);
+<span class="macro">impl_bit_iter_high!</span>(U32BitIterHigh, u32, u32_region_mask);
+<span class="macro">impl_bit_iter_high!</span>(U64BitIterHigh, u64, u64_region_mask);
+<span class="macro">impl_bit_iter_high!</span>(U128BitIterHigh, u128, u128_region_mask);
 
 <span class="attr">#[test]
-</span><span class="kw">fn </span>test_U8BitIterLow() {
-  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">2</span>, <span class="number">0b1011_0111_u8</span>);
+</span><span class="kw">fn </span>test_U8BitIterHigh() {
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterHigh::from_count_and_bits(<span class="number">2</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b10_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b01_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b11_u8</span>));
-  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b10_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 
-  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">3</span>, <span class="number">0b1011_0111_u8</span>);
-  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b111_u8</span>));
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterHigh::from_count_and_bits(<span class="number">3</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b101_u8</span>));
+  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b101_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b110_u8</span>));
-  <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b010_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 
-  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterLow::from_count_and_bits(<span class="number">8</span>, <span class="number">0b1011_0111_u8</span>);
+  <span class="kw">let </span><span class="kw-2">mut </span>iter = U8BitIterHigh::from_count_and_bits(<span class="number">8</span>, <span class="number">0b1011_0111_u8</span>);
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">Some</span>(<span class="number">0b1011_0111_u8</span>));
   <span class="macro">assert_eq!</span>(iter.next(), <span class="prelude-val">None</span>);
 }
