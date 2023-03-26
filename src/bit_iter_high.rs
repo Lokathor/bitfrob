@@ -1,6 +1,6 @@
 use crate::region_mask::*;
 
-macro_rules! impl_bit_iter_low {
+macro_rules! impl_bit_iter_high {
   ($name:ident, $elem:ty, $region_mask_fn:ident) => {
     /// Iterator for groups of bits in an integer (low to high).
     ///
@@ -21,7 +21,7 @@ macro_rules! impl_bit_iter_low {
       ///
       /// If `bits_per_iter` doesn't divide evenly into the number of bits in
       /// the type then the final output of the iterator will be the partial
-      /// chunk of bits aligned to the *low* end of the bit span.
+      /// chunk of bits aligned to the *high* end of the bit span.
       ///
       /// ## Panics
       /// * `bits_per_iter` must be greater than 0.
@@ -37,7 +37,8 @@ macro_rules! impl_bit_iter_low {
         assert!(bits_per_iter <= <$elem>::BITS);
         Self {
           bits,
-          mask: $region_mask_fn(0, bits_per_iter - 1),
+          mask: $region_mask_fn(0, bits_per_iter - 1)
+            << (<$elem>::BITS - bits_per_iter),
           bits_per_iter,
           bits_remaining: <$elem>::BITS as i32,
         }
@@ -50,8 +51,9 @@ macro_rules! impl_bit_iter_low {
         if self.bits_remaining < 1 {
           None
         } else {
-          let out: $elem = self.bits & self.mask;
-          self.bits = self.bits.wrapping_shr(self.bits_per_iter);
+          let out: $elem =
+            (self.bits & self.mask) >> (<$elem>::BITS - self.bits_per_iter);
+          self.bits = self.bits.wrapping_shl(self.bits_per_iter);
           self.bits_remaining -= self.bits_per_iter as i32;
           Some(out)
         }
@@ -60,28 +62,28 @@ macro_rules! impl_bit_iter_low {
   };
 }
 
-impl_bit_iter_low!(U8BitIterLow, u8, u8_region_mask);
-impl_bit_iter_low!(U16BitIterLow, u16, u16_region_mask);
-impl_bit_iter_low!(U32BitIterLow, u32, u32_region_mask);
-impl_bit_iter_low!(U64BitIterLow, u64, u64_region_mask);
-impl_bit_iter_low!(U128BitIterLow, u128, u128_region_mask);
+impl_bit_iter_high!(U8BitIterHigh, u8, u8_region_mask);
+impl_bit_iter_high!(U16BitIterHigh, u16, u16_region_mask);
+impl_bit_iter_high!(U32BitIterHigh, u32, u32_region_mask);
+impl_bit_iter_high!(U64BitIterHigh, u64, u64_region_mask);
+impl_bit_iter_high!(U128BitIterHigh, u128, u128_region_mask);
 
 #[test]
-fn test_U8BitIterLow() {
-  let mut iter = U8BitIterLow::from_count_and_bits(2, 0b1011_0111_u8);
+fn test_U8BitIterHigh() {
+  let mut iter = U8BitIterHigh::from_count_and_bits(2, 0b1011_0111_u8);
+  assert_eq!(iter.next(), Some(0b10_u8));
   assert_eq!(iter.next(), Some(0b11_u8));
   assert_eq!(iter.next(), Some(0b01_u8));
   assert_eq!(iter.next(), Some(0b11_u8));
-  assert_eq!(iter.next(), Some(0b10_u8));
   assert_eq!(iter.next(), None);
 
-  let mut iter = U8BitIterLow::from_count_and_bits(3, 0b1011_0111_u8);
-  assert_eq!(iter.next(), Some(0b111_u8));
+  let mut iter = U8BitIterHigh::from_count_and_bits(3, 0b1011_0111_u8);
+  assert_eq!(iter.next(), Some(0b101_u8));
+  assert_eq!(iter.next(), Some(0b101_u8));
   assert_eq!(iter.next(), Some(0b110_u8));
-  assert_eq!(iter.next(), Some(0b010_u8));
   assert_eq!(iter.next(), None);
 
-  let mut iter = U8BitIterLow::from_count_and_bits(8, 0b1011_0111_u8);
+  let mut iter = U8BitIterHigh::from_count_and_bits(8, 0b1011_0111_u8);
   assert_eq!(iter.next(), Some(0b1011_0111_u8));
   assert_eq!(iter.next(), None);
 }

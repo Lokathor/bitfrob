@@ -30,33 +30,20 @@
 //! [ref-track_caller]:
 //!     https://doc.rust-lang.org/reference/attributes/codegen.html#the-track_caller-attribute
 
-mod get_bit;
-pub use get_bit::*;
-
-mod with_bit;
-pub use with_bit::*;
-
-mod region_mask;
-pub use region_mask::*;
-
-mod get_region;
-pub use get_region::*;
-
-mod with_region;
-pub use with_region::*;
-
-mod get_value;
-pub use get_value::*;
-
-mod with_value;
-pub use with_value::*;
-
-// Note: module name must not match type name!
-mod u8x2_;
-pub use u8x2_::*;
-
-mod replicate_bits;
-pub use replicate_bits::*;
-
+mod bit_iter_high;
 mod bit_iter_low;
-pub use bit_iter_low::*;
+mod get_bit;
+mod get_region;
+mod get_value;
+mod region_mask;
+mod replicate_bits;
+mod u8x2_;
+mod with_bit;
+mod with_region;
+mod with_value;
+
+pub use self::{
+  bit_iter_high::*, bit_iter_low::*, get_bit::*, get_region::*, get_value::*,
+  region_mask::*, replicate_bits::*, u8x2_::*, with_bit::*, with_region::*,
+  with_value::*,
+};
