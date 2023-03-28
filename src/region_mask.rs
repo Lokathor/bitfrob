@@ -9,14 +9,17 @@ macro_rules! impl_region_mask {
     /// you can use it yourself if you think it's useful.
     ///
     /// ## Panics
-    /// * `low` and `high` can't exceed the number of bits in the type.
-    /// * `low` must be less than `high`.
+    /// * `low` and `high` must be less than the number of bits in the type.
+    /// * `low` must be less than or equal to `high`.
     ///
     /// ```
     /// # use bitfrob::*;
+    #[doc = concat!("assert_eq!(",stringify!($fn_name), "(0, 0), 0b0000_0001_", stringify!($t), ");")]
+    #[doc = concat!("assert_eq!(",stringify!($fn_name), "(0, 1), 0b0000_0011_", stringify!($t), ");")]
     #[doc = concat!("assert_eq!(",stringify!($fn_name), "(0, 2), 0b0000_0111_", stringify!($t), ");")]
     #[doc = concat!("assert_eq!(",stringify!($fn_name), "(1, 3), 0b0000_1110_", stringify!($t), ");")]
     #[doc = concat!("assert_eq!(",stringify!($fn_name), "(4, 7), 0b1111_0000_", stringify!($t), ");")]
+    #[doc = concat!("assert_eq!(",stringify!($fn_name), "(4, 4), 0b0001_0000_", stringify!($t), ");")]
     /// ```
     #[inline]
     #[must_use]
@@ -24,7 +27,7 @@ macro_rules! impl_region_mask {
     pub const fn $fn_name(low: u32, high: u32) -> $t {
       assert!(low < <$t>::BITS);
       assert!(high < <$t>::BITS);
-      assert!(low < high);
+      assert!(low <= high);
       (<$t>::MAX >> ((<$t>::BITS - 1) - (high - low))) << low
     }
   };

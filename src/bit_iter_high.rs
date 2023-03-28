@@ -70,6 +70,17 @@ impl_bit_iter_high!(U128BitIterHigh, u128, u128_region_mask);
 
 #[test]
 fn test_U8BitIterHigh() {
+  let mut iter = U8BitIterHigh::from_count_and_bits(1, 0b1011_0111_u8);
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), Some(0b0_u8));
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), Some(0b0_u8));
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), Some(0b1_u8));
+  assert_eq!(iter.next(), None);
+
   let mut iter = U8BitIterHigh::from_count_and_bits(2, 0b1011_0111_u8);
   assert_eq!(iter.next(), Some(0b10_u8));
   assert_eq!(iter.next(), Some(0b11_u8));
