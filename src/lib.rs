@@ -32,6 +32,7 @@
 
 mod bit_iter_high;
 mod bit_iter_low;
+mod bit_split;
 mod get_bit;
 mod get_region;
 mod get_value;
@@ -43,7 +44,7 @@ mod with_region;
 mod with_value;
 
 pub use self::{
-  bit_iter_high::*, bit_iter_low::*, get_bit::*, get_region::*, get_value::*,
+  bit_iter_high::*, bit_iter_low::*, bit_split::*, get_bit::*, get_region::*, get_value::*,
   region_mask::*, replicate_bits::*, u8x2_::*, with_bit::*, with_region::*,
   with_value::*,
 };
