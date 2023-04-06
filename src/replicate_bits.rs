@@ -1,13 +1,14 @@
 macro_rules! impl_replicate_bits {
   ($fn_name:ident, $t:ty) => {
-    /// Replicates the low `count` bits across the entire value.
+    /// Replicates the lowest `count` bits across the entire value.
     ///
-    /// If higher bits are set in the input it will not affect the output.
+    /// If higher bits are set in the input it will not affect the output (they
+    /// end up being discarded).
     ///
     /// This is a form of "sample depth scaling". If your source data's bit
-    /// depth is *less* than the full range of a `uX` value (eg, only 5 bits out
-    /// of a `u8`), this function can scale up the sample into the integer's
-    /// full range.
+    /// depth is *less* than the full range of a `uX` value (eg, only the lowest
+    /// 5 bits in a `u8`), this function can scale up the sample into the
+    /// integer's full range.
     ///
     /// ## Panics
     /// * `count` can't exceed the number of bits in the type.
@@ -33,8 +34,8 @@ macro_rules! impl_replicate_bits {
         out |= (out >> count);
         out_count += count;
         // Note(Lokathor): As the output builds the number of "good" bits can
-        // double each time, which helps when small starting bits are replicated
-        // across the larger int types.
+        // double each time, which reduces the number of iterations when a small
+        // number of starting bits get replicated across the larger int types.
         count *= 2;
       }
       out
