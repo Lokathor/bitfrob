@@ -12,21 +12,9 @@
 
 //! A crate to help with bit manipulation of integers.
 //!
-//! ## Naming Conventions
-//!
-//! * The `bit` function work on a single bit.
-//! * The `region` functions work on multiple adjacent bits.
-//! * The `value` functions are like a `region` but the value is automatically
-//!   shifted down on read and up on write so that you can input/output normal
-//!   values and the function will put it in place for you.
-//! * `get` reads a value.
-//! * `with` returns a new value.
-//!
 //! ## Features
 //! * `track_caller` adds the [`#[track_caller]`][ref-track_caller] attribute on
-//!   all the functions that assert stuff. Note that using the `track_caller`
-//!   attribute can give LLVM trouble with inlining, so it's suggested that you
-//!   only use this feature as necessary during debugging.
+//!   all the functions that assert stuff.
 //!
 //! [ref-track_caller]:
 //!     https://doc.rust-lang.org/reference/attributes/codegen.html#the-track_caller-attribute
