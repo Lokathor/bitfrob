@@ -1,6 +1,6 @@
 /// Splits a byte into 1-bit chunks.
 ///
-/// Bit 0 of the input will be in the first element of the output.
+/// Bit 0 of the input will be in the **first** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_1x8(byte: u8) -> [u8; 8] {
@@ -18,7 +18,7 @@ pub const fn u8_bit_split_1x8(byte: u8) -> [u8; 8] {
 
 /// Splits a byte into 2-bit chunks.
 ///
-/// Bit 0 of the input will be in the first element of the output.
+/// Bit 0 of the input will be in the **first** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_2x4(byte: u8) -> [u8; 4] {
@@ -32,7 +32,7 @@ pub const fn u8_bit_split_2x4(byte: u8) -> [u8; 4] {
 
 /// Splits a byte into 4-bit chunks.
 ///
-/// Bit 0 of the input will be in the first element of the output.
+/// Bit 0 of the input will be in the **first** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_4x2(byte: u8) -> [u8; 2] {
@@ -41,7 +41,7 @@ pub const fn u8_bit_split_4x2(byte: u8) -> [u8; 2] {
 
 /// Splits a byte into 1-bit chunks (reversed).
 ///
-/// Bit 0 of the input will be in the last element of the output.
+/// Bit 0 of the input will be in the **last** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_1x8_rev(byte: u8) -> [u8; 8] {
@@ -59,7 +59,7 @@ pub const fn u8_bit_split_1x8_rev(byte: u8) -> [u8; 8] {
 
 /// Splits a byte into 2-bit chunks (reversed).
 ///
-/// Bit 0 of the input will be in the last element of the output.
+/// Bit 0 of the input will be in the **last** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_2x4_rev(byte: u8) -> [u8; 4] {
@@ -73,7 +73,7 @@ pub const fn u8_bit_split_2x4_rev(byte: u8) -> [u8; 4] {
 
 /// Splits a byte into 4-bit chunks (reversed).
 ///
-/// Bit 0 of the input will be in the last element of the output.
+/// Bit 0 of the input will be in the **last** element of the output.
 #[inline]
 #[must_use]
 pub const fn u8_bit_split_4x2_rev(byte: u8) -> [u8; 2] {
