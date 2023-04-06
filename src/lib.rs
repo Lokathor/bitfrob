@@ -1,13 +1,14 @@
 #![no_std]
-#![forbid(unsafe_code)]
-#![cfg_attr(test, allow(bad_style))]
-#![warn(missing_copy_implementations)]
-#![warn(missing_debug_implementations)]
 #![warn(missing_docs)]
-#![warn(clippy::missing_const_for_fn)]
-#![warn(clippy::missing_inline_in_public_items)]
+#![forbid(unsafe_code)]
+#![allow(clippy::identity_op)]
+#![cfg_attr(test, allow(bad_style))]
 #![warn(clippy::missing_panics_doc)]
 #![warn(clippy::must_use_candidate)]
+#![warn(missing_copy_implementations)]
+#![warn(clippy::missing_const_for_fn)]
+#![warn(missing_debug_implementations)]
+#![warn(clippy::missing_inline_in_public_items)]
 
 //! A crate to help with bit manipulation of integers.
 //!
@@ -44,7 +45,7 @@ mod with_region;
 mod with_value;
 
 pub use self::{
-  bit_iter_high::*, bit_iter_low::*, bit_split::*, get_bit::*, get_region::*, get_value::*,
-  region_mask::*, replicate_bits::*, u8x2_::*, with_bit::*, with_region::*,
-  with_value::*,
+  bit_iter_high::*, bit_iter_low::*, bit_split::*, get_bit::*, get_region::*,
+  get_value::*, region_mask::*, replicate_bits::*, u8x2_::*, with_bit::*,
+  with_region::*, with_value::*,
 };
