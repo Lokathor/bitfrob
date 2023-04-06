@@ -10,7 +10,7 @@ macro_rules! impl_region_mask {
     ///
     /// ## Panics
     /// * `low` and `high` must be less than the number of bits in the type.
-    /// * `low` must be less than or equal to `high`.
+    /// * `low` must be *less than or equal to* `high`.
     ///
     /// ```
     /// # use bitfrob::*;
