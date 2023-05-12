@@ -34,3 +34,17 @@ impl u8x2 {
     Self(u16_with_value(8, 15, self.0, high as u16))
   }
 }
+
+impl From<[u8; 2]> for u8x2 {
+  #[inline]
+  fn from(value: [u8; 2]) -> Self {
+    Self(u16::from_ne_bytes(value))
+  }
+}
+
+impl From<u8x2> for [u8; 2] {
+  #[inline]
+  fn from(value: u8x2) -> Self {
+    value.0.to_ne_bytes()
+  }
+}
