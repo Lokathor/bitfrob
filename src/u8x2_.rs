@@ -37,6 +37,7 @@ impl u8x2 {
 
 impl From<[u8; 2]> for u8x2 {
   #[inline]
+  #[must_use]
   fn from(value: [u8; 2]) -> Self {
     Self(u16::from_ne_bytes(value))
   }
@@ -44,6 +45,7 @@ impl From<[u8; 2]> for u8x2 {
 
 impl From<u8x2> for [u8; 2] {
   #[inline]
+  #[must_use]
   fn from(value: u8x2) -> Self {
     value.0.to_ne_bytes()
   }
