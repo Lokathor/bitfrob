@@ -1,5 +1,3 @@
-use crate::region_mask::*;
-
 macro_rules! impl_bit_iter_high {
   ($name:ident, $elem:ty, $region_mask_fn:ident) => {
     /// Iterator for groups of bits in an integer (low to high).
@@ -11,7 +9,6 @@ macro_rules! impl_bit_iter_high {
     #[allow(missing_copy_implementations)]
     pub struct $name {
       bits: $elem,
-      mask: $elem,
       bits_per_iter: u32,
       bits_remaining: i32,
     }
@@ -35,13 +32,7 @@ macro_rules! impl_bit_iter_high {
       ) -> Self {
         assert!(bits_per_iter > 0);
         assert!(bits_per_iter <= <$elem>::BITS);
-        Self {
-          bits,
-          mask: $region_mask_fn(0, bits_per_iter - 1)
-            << (<$elem>::BITS - bits_per_iter),
-          bits_per_iter,
-          bits_remaining: <$elem>::BITS as i32,
-        }
+        Self { bits, bits_per_iter, bits_remaining: <$elem>::BITS as i32 }
       }
     }
     impl Iterator for $name {
@@ -51,8 +42,7 @@ macro_rules! impl_bit_iter_high {
         if self.bits_remaining < 1 {
           None
         } else {
-          let out: $elem =
-            (self.bits & self.mask) >> (<$elem>::BITS - self.bits_per_iter);
+          let out: $elem = self.bits >> (<$elem>::BITS - self.bits_per_iter);
           self.bits = self.bits.wrapping_shl(self.bits_per_iter);
           self.bits_remaining -= self.bits_per_iter as i32;
           Some(out)
